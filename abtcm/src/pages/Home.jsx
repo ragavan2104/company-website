@@ -184,7 +184,7 @@ const Home = () => {
         <div className="container-custom">
           <div className="text-center mb-16">
             <h2 className={`heading-2 text-gray-900 mb-6 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              Our <span className="text-gradient">Services</span>
+              Our <span className="text-black">Services</span>
             </h2>
             <p className={`body-lg text-gray-600 max-w-3xl mx-auto transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               Comprehensive digital solutions designed to transform your business 
@@ -200,13 +200,13 @@ const Home = () => {
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="flex justify-center">
             <Link
               to="/services"
-              className="btn-primary btn-lg group"
+              className="btn-primary btn-lg group flex items-center"
             >
               View All Services
-              <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform text-white" />
             </Link>
           </div>
         </div>

@@ -296,22 +296,12 @@ const About = () => {
           <div className="text-center max-w-4xl mx-auto">
             <h1 className={`heading-1 text-white mb-8 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               Transforming Ideas into 
-              <span className="block text-gradient">Digital Excellence</span>
+              <span className="block  font-semibold">Digital Excellence</span>
             </h1>
             <p className={`body-lg text-white/90 mb-8 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               We are a team of passionate innovators, designers, and developers dedicated to 
               creating exceptional digital experiences that drive business success.
             </p>
-            <div className={`flex flex-col sm:flex-row gap-4 justify-center transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              <button className="btn-secondary btn-lg group">
-                <Play size={20} className="mr-2 group-hover:scale-110 transition-transform" />
-                Watch Our Story
-              </button>
-              <button className="btn-outline btn-lg group bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white hover:text-gray-900">
-                Meet Our Team
-                <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
           </div>
         </div>
       </section>
