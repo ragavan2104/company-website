@@ -8,10 +8,10 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">V</span>
               </div>
-              <h3 className="text-2xl font-bold text-orange-400">Vishenx</h3>
+              <h3 className="text-2xl font-bold text-blue-400">Vishenx</h3>
             </div>
             <p className="text-gray-300 mb-6 leading-relaxed">
               We are a leading technology company dedicated to delivering innovative solutions 

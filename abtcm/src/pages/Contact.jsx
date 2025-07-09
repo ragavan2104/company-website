@@ -89,17 +89,17 @@ const Contact = () => {
   return (
     <div className="pt-16">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-orange-600 via-red-600 to-orange-800 text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-800 text-white relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-orange-500/20 to-red-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-indigo-500/20 to-blue-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-blue-500/20 to-indigo-500/20 rounded-full blur-3xl"></div>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
             <h1 className={`text-4xl md:text-5xl font-bold mb-6 transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-              Get In <span className="text-gradient bg-gradient-to-r from-yellow-400 to-orange-300 bg-clip-text text-transparent">Touch</span>
+              Get In <span className="text-gradient bg-gradient-to-r from-cyan-400 to-blue-300 bg-clip-text text-transparent">Touch</span>
             </h1>
-            <p className={`text-xl text-orange-100 max-w-3xl mx-auto leading-relaxed transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
+            <p className={`text-xl text-white/90 max-w-3xl mx-auto leading-relaxed transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
               Ready to start your project? We'd love to hear from you. 
               Let's discuss how we can help bring your vision to life.
             </p>
@@ -126,7 +126,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="John Doe"
                     />
                   </div>
@@ -140,7 +140,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -156,7 +156,7 @@ const Contact = () => {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="Your Company"
                     />
                   </div>
@@ -168,7 +168,7 @@ const Contact = () => {
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     >
                       <option value="">Select a service</option>
                       {services.map((service, index) => (
@@ -186,7 +186,7 @@ const Contact = () => {
                     name="budget"
                     value={formData.budget}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   >
                     <option value="">Select budget range</option>
                     {budgetRanges.map((range, index) => (
@@ -205,14 +205,14 @@ const Contact = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     placeholder="Tell us about your project requirements, goals, and timeline..."
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-orange-600 to-red-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-orange-700 hover:to-red-700 transition-all duration-300 flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 flex items-center justify-center"
                 >
                   <Send size={20} className="mr-2" />
                   Send Message
@@ -231,12 +231,12 @@ const Contact = () => {
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-start space-x-4">
-                    <div className="flex items-center justify-center w-12 h-12 bg-orange-100 rounded-lg">
-                      <info.icon size={24} className="text-orange-600" />
+                    <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg">
+                      <info.icon size={24} className="text-blue-600" />
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">{info.title}</h3>
-                      <p className="text-orange-600 font-medium">{info.details}</p>
+                      <p className="text-blue-600 font-medium">{info.details}</p>
                       <p className="text-gray-600 text-sm">{info.description}</p>
                     </div>
                   </div>
@@ -249,21 +249,21 @@ const Contact = () => {
                 <div className="space-y-3">
                   <a
                     href="mailto:info@vishenx.com"
-                    className="flex items-center space-x-3 text-orange-600 hover:text-orange-800 transition-colors"
+                    className="flex items-center space-x-3 text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     <Mail size={20} />
                     <span>Send us an email</span>
                   </a>
                   <a
                     href="tel:+15551234567"
-                    className="flex items-center space-x-3 text-orange-600 hover:text-orange-800 transition-colors"
+                    className="flex items-center space-x-3 text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     <Phone size={20} />
                     <span>Call us now</span>
                   </a>
                   <a
                     href="#"
-                    className="flex items-center space-x-3 text-orange-600 hover:text-orange-800 transition-colors"
+                    className="flex items-center space-x-3 text-blue-600 hover:text-blue-800 transition-colors"
                   >
                     <MessageCircle size={20} />
                     <span>Start live chat</span>

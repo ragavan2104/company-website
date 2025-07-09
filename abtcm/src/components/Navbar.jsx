@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ChevronDown, ArrowRight } from 'lucide-react'
+import { Menu, X, ChevronDown, ArrowRight, Sparkles } from 'lucide-react'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const location = useLocation()
 
   useEffect(() => {
@@ -16,15 +17,22 @@ const Navbar = () => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setIsMenuOpen(false)
+        setActiveDropdown(null)
       }
+    }
+
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
     }
 
     window.addEventListener('scroll', handleScroll)
     window.addEventListener('resize', handleResize)
+    window.addEventListener('mousemove', handleMouseMove)
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', handleResize)
+      window.removeEventListener('mousemove', handleMouseMove)
     }
   }, [])
 
@@ -35,10 +43,12 @@ const Navbar = () => {
       path: '/services', 
       hasDropdown: true,
       dropdownItems: [
-        { name: 'Web Development', path: '/services#web' },
-        { name: 'Mobile Apps', path: '/services#mobile' },
-        { name: 'Cloud Solutions', path: '/services#cloud' },
-        { name: 'UI/UX Design', path: '/services#design' }
+        { name: 'Web Development', path: '/services#web', icon: '🌐' },
+        { name: 'Mobile Apps', path: '/services#mobile', icon: '📱' },
+        { name: 'Cloud Solutions', path: '/services#cloud', icon: '☁️' },
+        { name: 'UI/UX Design', path: '/services#design', icon: '🎨' },
+        { name: 'Digital Marketing', path: '/services#marketing', icon: '📈' },
+        { name: 'Consulting', path: '/services#consulting', icon: '💼' }
       ]
     },
     { name: 'Portfolio', path: '/portfolio', hasDropdown: false },
@@ -48,209 +58,154 @@ const Navbar = () => {
 
   const isActive = (path) => location.pathname === path
 
-  const handleDropdownToggle = (itemName) => {
-    setActiveDropdown(activeDropdown === itemName ? null : itemName)
-  }
-
-  const closeMenu = () => {
-    setIsMenuOpen(false)
-    setActiveDropdown(null)
-  }
-
   return (
-    <>
-      {/* Main Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-xl shadow-2xl border-b border-orange-100' 
-          : 'bg-black/10 backdrop-blur-sm'
-      }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <Link to="/" className="flex items-center space-x-3 group" onClick={closeMenu}>
-              <div className="relative">
-                {/* Logo Icon */}
-                <div className="w-10 h-10 bg-gradient-to-br from-orange-500 via-red-500 to-pink-600 rounded-lg flex items-center justify-center transform group-hover:scale-110 transition-all duration-300 shadow-lg">
-                  <span className="text-white font-bold text-lg">V</span>
-                </div>
-                {/* Glow effect */}
-                <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg opacity-0 group-hover:opacity-30 blur-xl transition-opacity duration-300"></div>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      isScrolled 
+        ? 'bg-white/80 backdrop-blur-xl shadow-2xl border-b border-blue-100' 
+        : 'bg-transparent'
+    }`}>
+      {/* Gradient overlay for better contrast */}
+      <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/95 to-white/90 backdrop-blur-xl"></div>
+      
+      <div className="container-custom relative">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="relative">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center transform group-hover:scale-110 transition-all duration-300 shadow-lg group-hover:shadow-xl">
+                <Sparkles className="text-white" size={24} />
               </div>
-              <div className="flex flex-col">
-                <span className={`text-xl font-bold transition-colors duration-300 ${
-                  isScrolled ? 'text-gray-900' : 'text-white'
-                }`}>
-                  Vishenx
-                </span>
-              </div>
-            </Link>
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-pulse"></div>
+            </div>
+            <div className="hidden sm:block">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Vishenx</h1>
+              <p className="text-xs text-gray-600 -mt-1">Digital Innovation</p>
+            </div>
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <div key={item.name} className="relative group">
-                  <Link
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <div key={item.name} className="relative group">                  <Link
                     to={item.path}
-                    className={`relative flex items-center px-3 py-2 text-sm font-medium transition-all duration-300 ${
-                      isActive(item.path)
-                        ? isScrolled 
-                          ? 'text-orange-600' 
-                          : 'text-orange-400'
-                        : isScrolled 
-                          ? 'text-gray-700 hover:text-orange-600' 
-                          : 'text-white hover:text-orange-400'
-                    } transform hover:scale-105`}
-                    onMouseEnter={() => item.hasDropdown && setActiveDropdown(item.name)}
-                    onMouseLeave={() => item.hasDropdown && setActiveDropdown(null)}
+                    className={`nav-link ${isActive(item.path) ? 'text-blue-600' : 'text-gray-700 hover:text-blue-600'}`}
+                    onMouseEnter={() => setActiveDropdown(item.hasDropdown ? item.name : null)}
+                    onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    {item.name}
-                    {item.hasDropdown && (
-                      <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${
-                        activeDropdown === item.name ? 'rotate-180' : ''
-                      }`} />
-                    )}
-                    {isActive(item.path) && (
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 rounded-full"></div>
-                    )}
-                  </Link>
+                  <span className="flex items-center space-x-1">
+                    <span>{item.name}</span>
+                    {item.hasDropdown && <ChevronDown size={16} className="transition-transform group-hover:rotate-180" />}
+                  </span>
+                </Link>
 
-                  {/* Dropdown Menu */}
-                  {item.hasDropdown && (
-                    <div
-                      className={`absolute top-full left-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-gray-100 transition-all duration-300 ${
-                        activeDropdown === item.name 
-                          ? 'opacity-100 visible transform translate-y-0' 
-                          : 'opacity-0 invisible transform -translate-y-2'
-                      }`}
-                      onMouseEnter={() => setActiveDropdown(item.name)}
-                      onMouseLeave={() => setActiveDropdown(null)}
-                    >
-                      <div className="p-2">
-                        {item.dropdownItems?.map((dropdownItem, index) => (
+                {/* Dropdown Menu */}
+                {item.hasDropdown && activeDropdown === item.name && (
+                  <div 
+                    className="absolute top-full left-0 mt-2 w-64 bg-white rounded-3xl shadow-2xl border border-blue-100 overflow-hidden animate-fade-in-up"
+                    onMouseEnter={() => setActiveDropdown(item.name)}
+                    onMouseLeave={() => setActiveDropdown(null)}
+                  >
+                    <div className="p-6">
+                      <h3 className="font-semibold text-gray-900 mb-4 text-sm uppercase tracking-wide">Our Services</h3>
+                      <div className="space-y-2">
+                        {item.dropdownItems.map((dropdownItem, index) => (
                           <Link
                             key={index}
                             to={dropdownItem.path}
-                            className="flex items-center px-4 py-3 text-gray-700 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200 group"
+                            className="flex items-center space-x-3 p-3 rounded-2xl hover:bg-blue-50 transition-all duration-200 group"
                           >
-                            <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                            {dropdownItem.name}
-                            <ArrowRight size={14} className="ml-auto opacity-0 group-hover:opacity-100 transition-all duration-200 transform group-hover:translate-x-1" />
+                            <span className="text-2xl">{dropdownItem.icon}</span>
+                            <div>
+                              <p className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                                {dropdownItem.name}
+                              </p>
+                            </div>
+                            <ArrowRight size={16} className="text-gray-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all ml-auto" />
                           </Link>
                         ))}
                       </div>
                     </div>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* CTA Button & Mobile Menu */}
-            <div className="flex items-center space-x-4">
-              {/* CTA Button */}
-              <Link
-                to="/contact"
-                className={`hidden md:inline-flex items-center px-6 py-2.5 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 ${
-                  isScrolled
-                    ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white hover:shadow-xl hover:shadow-orange-500/25'
-                    : 'bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white hover:text-gray-900'
-                }`}
-              >
-                <span>Get Started</span>
-                <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
-              </Link>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`lg:hidden p-2 rounded-lg transition-all duration-300 ${
-                  isScrolled 
-                    ? 'text-gray-900 hover:bg-gray-100' 
-                    : 'text-white hover:bg-white/10'
-                } transform hover:scale-110`}
-              >
-                <div className="relative">
-                  {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className={`lg:hidden transition-all duration-500 ease-in-out ${
-          isMenuOpen 
-            ? 'max-h-screen opacity-100' 
-            : 'max-h-0 opacity-0'
-        } overflow-hidden bg-white/98 backdrop-blur-xl border-t border-orange-100`}>
-          <div className="p-6 space-y-4">
-            {navItems.map((item, index) => (
-              <div key={item.name} className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Link
-                    to={item.path}
-                    onClick={closeMenu}
-                    className={`flex items-center px-4 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                      isActive(item.path) 
-                        ? 'bg-gradient-to-r from-orange-500 to-red-500 text-white shadow-lg' 
-                        : 'text-gray-900 hover:bg-orange-50 hover:text-orange-600'
-                    }`}
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <span className="font-medium">{item.name}</span>
-                    {isActive(item.path) && (
-                      <div className="ml-2 w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                    )}
-                  </Link>
-                  {item.hasDropdown && (
-                    <button
-                      onClick={() => handleDropdownToggle(item.name)}
-                      className="p-2 text-gray-600 hover:text-orange-600 transition-colors"
-                    >
-                      <ChevronDown size={20} className={`transition-transform duration-200 ${
-                        activeDropdown === item.name ? 'rotate-180' : ''
-                      }`} />
-                    </button>
-                  )}
-                </div>
-
-                {/* Mobile Dropdown */}
-                {item.hasDropdown && (
-                  <div className={`pl-4 space-y-2 transition-all duration-300 ${
-                    activeDropdown === item.name ? 'block' : 'hidden'
-                  }`}>
-                    {item.dropdownItems?.map((dropdownItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={dropdownItem.path}
-                        onClick={closeMenu}
-                        className="flex items-center px-4 py-2 text-gray-600 hover:text-orange-600 hover:bg-orange-50 rounded-lg transition-all duration-200"
-                      >
-                        <div className="w-1 h-1 bg-gray-400 rounded-full mr-3"></div>
-                        {dropdownItem.name}
-                      </Link>
-                    ))}
                   </div>
                 )}
               </div>
             ))}
+          </div>
 
-            {/* Mobile CTA */}
-            <div className="pt-4 border-t border-orange-200">
-              <Link
-                to="/contact"
-                onClick={closeMenu}
-                className="flex items-center justify-center w-full px-6 py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-xl font-semibold hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
-                <span>Get Started Today</span>
-                <ArrowRight size={20} className="ml-2" />
-              </Link>
+          {/* CTA Button */}
+          <div className="hidden md:flex items-center space-x-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full shadow-lg hover:shadow-xl transition-all duration-300">
+            <Link
+              to="/contact"
+              className="text-white font-medium group flex items-center"
+            >
+              <span>Get Started</span>
+              <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 rounded-2xl hover:bg-blue-50 transition-colors"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white rounded-b-3xl shadow-2xl border border-blue-100 animate-fade-in-up">
+            <div className="p-6 space-y-4">
+              {navItems.map((item) => (
+                <div key={item.name} className="space-y-2">
+                  <Link
+                    to={item.path}
+                    className={`block py-3 px-4 rounded-2xl font-medium transition-all duration-200 ${
+                      isActive(item.path)
+                        ? 'bg-blue-50 text-blue-600'
+                        : 'text-gray-700 hover:bg-blue-50 hover:text-blue-600'
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="flex items-center justify-between">
+                      <span>{item.name}</span>
+                      {item.hasDropdown && <ChevronDown size={16} />}
+                    </span>
+                  </Link>
+                  
+                  {item.hasDropdown && (
+                    <div className="pl-4 space-y-2">
+                      {item.dropdownItems.map((dropdownItem, index) => (
+                        <Link
+                          key={index}
+                          to={dropdownItem.path}
+                          className="flex items-center space-x-3 py-2 px-4 rounded-xl text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          <span className="text-lg">{dropdownItem.icon}</span>
+                          <span>{dropdownItem.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              
+              <div className="pt-4 border-t border-blue-100">
+                <Link
+                  to="/contact"
+                  className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-2xl font-medium w-full flex items-center justify-center hover:shadow-lg transition-all duration-200"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Get Started
+                  <ArrowRight size={16} className="ml-2" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
-    </>
+        )}
+      </div>
+    </nav>
   )
 }
 
-export default Navbar;
+export default Navbar
